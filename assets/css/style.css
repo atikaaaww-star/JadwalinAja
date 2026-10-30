@@ -1,0 +1,155 @@
+/* =====================================================================
+ * assets/css/style.css
+ * Seluruh tampilan JadwalinAja. Daftar isi:
+ *   1) Variabel warna (palet)       6) Badge, pill, titik warna
+ *   2) Reset & gaya dasar           7) Item tugas & countdown
+ *   3) Topbar / navbar              8) Sesi jadwal (checklist)
+ *   4) Komponen umum (card, grid)   9) Tabel & form
+ *  5) Tombol & alert              10) Halaman login/daftar + responsif
+ * ===================================================================== */
+
+
+/* ---------- 1) VARIABEL WARNA ----------
+ * CSS variable didefinisikan sekali di :root lalu dipakai dengan var(--nama).
+ * Mengganti tema cukup mengubah nilai di sini. */
+:root {
+  --primary: #2563EB;       /* biru utama (tombol, link) */
+  --primary-dark: #1E3A8A;  /* biru tua (judul, teks logo) */
+  --accent: #F59E0B;        /* oranye aksen (peringatan, tombol jadwal) */
+  --success: #22C55E;       /* hijau (aman / selesai) */
+  --danger: #EF4444;        /* merah (mendesak / error) */
+  --bg: #F8FAFC;            /* latar halaman */
+  --card: #fff;             /* latar kartu */
+  --text: #0F172A;          /* warna teks utama */
+  --muted: #64748B;         /* teks pudar / keterangan */
+  --border: #E2E8F0;        /* garis tepi */
+  --radius: 14px;           /* kelengkungan sudut kartu */
+}
+
+
+/* ---------- 2) RESET & GAYA DASAR ---------- */
+* { box-sizing: border-box; }   /* padding & border dihitung ke dalam lebar elemen (lebih mudah mengatur ukuran) */
+body { margin: 0; font-family: Inter, 'Segoe UI', Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1 { font-size: 1.6rem; margin: .5rem 0 1rem; }
+h2 { font-size: 1.1rem; margin: 0 0 .8rem; }
+.container { max-width: 1100px; margin: 0 auto; padding: 1.2rem; }  /* konten di tengah, lebar maksimal 1100px */
+.muted { color: var(--muted); }    /* teks keterangan berwarna pudar */
+.small { font-size: .82rem; }      /* teks kecil */
+
+
+/* ---------- 3) TOPBAR / NAVBAR ---------- */
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;  /* logo di kiri, menu di kanan */
+  flex-wrap: wrap; gap: .5rem;                                         /* turun baris di layar sempit */
+  background: #fff; border-bottom: 1px solid var(--border);
+  padding: .6rem 1.2rem;
+  position: sticky; top: 0; z-index: 10;     /* menempel di atas saat halaman di-scroll */
+}
+.brand { display: flex; align-items: center; gap: .5rem; font: 800 1.3rem Poppins, 'Segoe UI', sans-serif; color: var(--primary-dark); }
+.brand b { color: var(--accent); }           /* "Aja" berwarna oranye */
+.brand:hover { text-decoration: none; }
+.topbar nav { display: flex; gap: .3rem; flex-wrap: wrap; }
+.topbar nav a { padding: .45rem .8rem; border-radius: 8px; color: var(--text); font-weight: 500; }
+.topbar nav a:hover { background: var(--bg); text-decoration: none; }
+.topbar nav a.active { background: #DBEAFE; color: var(--primary-dark); }   /* menu halaman yang sedang dibuka */
+.topbar nav a.logout { color: var(--danger); }
+
+
+/* ---------- 4) KOMPONEN UMUM ---------- */
+/* Kartu: kotak putih berborder untuk mengelompokkan isi */
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem; margin-bottom: 1rem; box-shadow: 0 1px 2px rgba(15,23,42,.04); }
+/* Baris judul kartu: judul di kiri, tombol/link di kanan */
+.card-head { display: flex; justify-content: space-between; align-items: center; gap: .5rem; margin-bottom: .6rem; }
+.card-head h1, .card-head h2 { margin: 0; }
+/* Grid 2 kolom sama lebar (di HP berubah jadi 1 kolom, lihat bagian 10) */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+/* Tiga kartu statistik sejajar */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1rem; }
+.stat { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; color: var(--muted); }
+.stat span { display: block; font-size: 2rem; font-weight: 800; color: var(--primary-dark); }   /* angka besar */
+
+
+/* ---------- 5) TOMBOL & ALERT ---------- */
+.btn { display: inline-block; border: 0; border-radius: 10px; padding: .55rem 1rem; font: 600 .95rem inherit; cursor: pointer; }
+.btn:hover { text-decoration: none; filter: brightness(.95); }          /* sedikit menggelap saat di-hover */
+.btn-primary { background: var(--primary); color: #fff; }               /* tombol utama (biru) */
+.btn-accent  { background: var(--accent); color: #1c1400; }             /* tombol aksen (oranye) */
+.btn-ghost   { background: transparent; color: var(--muted); border: 1px solid var(--border); }  /* tombol sekunder */
+
+/* Kotak pesan; kelas -success/-warning/-danger menentukan warnanya */
+.alert { padding: .7rem 1rem; border-radius: 10px; margin-bottom: 1rem; border: 1px solid; }
+.alert-success { background: #DCFCE7; border-color: #86EFAC; color: #14532D; }
+.alert-warning { background: #FEF3C7; border-color: #FCD34D; color: #78350F; }
+.alert-danger  { background: #FEE2E2; border-color: #FCA5A5; color: #7F1D1D; }
+
+
+/* ---------- 6) BADGE, PILL, TITIK WARNA ---------- */
+/* Badge/pill: label kecil berbentuk kapsul. Nama kelas dihasilkan PHP (deadline_class / priority_label). */
+.badge, .pill { display: inline-block; padding: .15rem .6rem; border-radius: 999px; font-size: .8rem; font-weight: 600; }
+.badge-danger, .pill-danger, .pill-overdue { background: #FEE2E2; color: #B91C1C; }   /* merah: mendesak / terlambat */
+.badge-warning, .pill-warning { background: #FEF3C7; color: #B45309; }                /* kuning: mulai dekat */
+.badge-safe, .pill-safe { background: #DCFCE7; color: #15803D; }                      /* hijau: masih aman */
+.pill-done { background: #E2E8F0; color: var(--muted); }                              /* abu: sudah selesai */
+/* Titik bulat berwarna penanda mata pelajaran (warna diisi lewat atribut style) */
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: .4rem; }
+
+
+/* ---------- 7) ITEM TUGAS & COUNTDOWN (dashboard) ---------- */
+/* border-left tebal = penanda warna deadline di sisi kiri kartu */
+.task-item { display: flex; justify-content: space-between; gap: 1rem; padding: .7rem .8rem; margin-bottom: .5rem; background: var(--bg); border-radius: 10px; border-left: 5px solid var(--border); }
+.border-danger, .border-overdue { border-left-color: var(--danger); }
+.border-warning { border-left-color: var(--accent); }
+.border-safe { border-left-color: var(--success); }
+.right { text-align: right; }
+.countdown { color: var(--muted); font-variant-numeric: tabular-nums; }   /* tabular-nums: lebar angka sama agar tidak "bergetar" */
+.countdown.late { color: var(--danger); font-weight: 600; }               /* kelas "late" ditambahkan oleh app.js */
+
+
+/* ---------- 8) SESI JADWAL (checklist belajar) ---------- */
+.slot { display: flex; align-items: center; gap: .6rem; padding: .5rem .2rem; border-bottom: 1px dashed var(--border); cursor: pointer; }
+.slot .time { font-weight: 600; color: var(--primary-dark); min-width: 105px; }
+/* Jika checkbox dicentang, teks jam dicoret dan dipudarkan */
+.slot input:checked ~ .time, .slot input:checked + .time { text-decoration: line-through; color: var(--muted); }
+.day { margin: 1rem 0 .2rem; font-size: .95rem; color: var(--primary-dark); }   /* judul tanggal di jadwal */
+
+
+/* ---------- 9) TABEL & FORM ---------- */
+/* Tab filter (Aktif / Selesai / Semua) berbentuk kapsul */
+.tabs { display: flex; gap: .3rem; margin-bottom: .8rem; }
+.tabs a { padding: .4rem .9rem; border-radius: 999px; background: #fff; border: 1px solid var(--border); color: var(--text); }
+.tabs a.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+/* Pembungkus tabel: overflow-x auto = tabel bisa digeser menyamping di layar kecil */
+.table-wrap { overflow-x: auto; background: #fff; border: 1px solid var(--border); border-radius: var(--radius); }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: .7rem .8rem; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { background: var(--bg); font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+
+/* Elemen form */
+label { display: block; font-weight: 500; font-size: .9rem; }
+input, select, textarea { width: 100%; margin-top: .3rem; padding: .55rem .7rem; border: 1px solid var(--border); border-radius: 10px; font: inherit; background: #fff; }
+input[type=checkbox] { width: auto; margin: 0; }             /* checkbox tidak boleh selebar penuh */
+input[type=color] { padding: 2px; height: 38px; }
+input:focus, select:focus, textarea:focus { outline: 2px solid #BFDBFE; border-color: var(--primary); }   /* sorotan biru saat diisi */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }   /* form 2 kolom */
+.full { grid-column: 1 / -1; }                                             /* elemen membentang di semua kolom */
+.actions { display: flex; gap: .5rem; }
+.inline-form { display: flex; gap: 1rem; align-items: end; flex-wrap: wrap; }   /* form sejajar menyamping */
+.row-between { display: flex; justify-content: space-between; align-items: center; padding: .5rem 0; border-bottom: 1px solid var(--border); }
+.avail td { border: 0; padding: .2rem .3rem; }               /* tabel waktu luang tanpa garis */
+.avail input { margin: 0; }
+hr { border: 0; border-top: 1px solid var(--border); margin: 1rem 0; }
+
+
+/* ---------- 10) HALAMAN LOGIN/DAFTAR & RESPONSIF ---------- */
+.auth-card { max-width: 400px; margin: 2rem auto; background: #fff; padding: 1.8rem; border-radius: var(--radius); border: 1px solid var(--border); }
+.auth-card form { display: grid; gap: .9rem; margin-bottom: 1rem; }
+.auth-logo { width: 100%; max-width: 280px; display: block; margin: 0 auto 1rem; }
+
+/* Media query: aturan di bawah hanya berlaku di layar selebar <= 760px (HP).
+ * Semua grid 2/3 kolom diubah menjadi 1 kolom agar nyaman dibaca. */
+@media (max-width: 760px) {
+  .grid-2, .form-grid, .stats { grid-template-columns: 1fr; }
+}
