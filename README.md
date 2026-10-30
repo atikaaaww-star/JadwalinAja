@@ -1,6 +1,8 @@
 # 📚 JadwalinAja
 
 > **Atur Tugas, Tentukan Prioritas, Hidup Berkualitas.**
+<img width="1356" height="760" alt="image" src="https://github.com/user-attachments/assets/49cce3fa-196f-4e7e-8406-3941093f0dcc" />
+
 
 JadwalinAja adalah aplikasi berbasis website yang membantu pelajar mengelola tugas sekolah, menentukan tugas yang perlu diprioritaskan, dan menyusun jadwal belajar dengan lebih teratur.
 
