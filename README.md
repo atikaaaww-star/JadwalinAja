@@ -1,6 +1,6 @@
 # 📚 JadwalinAja
 
-> **Atur Tugas, Tentukan Prioritas, Hidup Berkualitas.**
+> **Atur Tugas, Tentukan Prioritas, Bagi waktu.**
 <img width="1356" height="760" alt="image" src="https://github.com/user-attachments/assets/49cce3fa-196f-4e7e-8406-3941093f0dcc" />
 
 
@@ -205,4 +205,8 @@ JadwalinAja dikembangkan oleh:
 | Rafael Egi Wijaya | XI RPL 1 | Rekayasa Perangkat Lunak | SMKN 1 Ampelgading |
 | Atika Nazua | XI RPL 1 | Rekayasa Perangkat Lunak | SMKN 1 Ampelgading |
 
+<p align="center">
+  📚 <b>JadwalinAja</b><br>
+  <i>Atur tugas, tentukan prioritas, bagi waktu.</i>
+</p>
 ---
